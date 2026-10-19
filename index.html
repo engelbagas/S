@@ -1,113 +1,937 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HINON TECHNOLOGY V13 — النسخة المنظمة</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HINON TECHNOLOGY V15 — Enterprise Management Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--primary:#2563eb;--dark:#0f172a;--bg:#f1f5f9;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--success:#059669;--warning:#d97706;--danger:#dc2626}
-*{box-sizing:border-box}body{margin:0;font-family:Cairo,sans-serif;background:var(--bg);color:var(--text)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:8px;padding:9px 14px;font-weight:700}.primary{background:var(--primary);color:white}.success{background:var(--success);color:white}.danger{background:var(--danger);color:white}.warning{background:var(--warning);color:white}.secondary{background:#64748b;color:white}.muted{color:var(--muted)}.hidden{display:none!important}.screen{min-height:100vh;padding:24px;display:flex;align-items:center;justify-content:center}.auth{background:linear-gradient(135deg,#0f172a,#1d4ed8)}.panel{background:white;border-radius:16px;padding:26px;width:min(100%,720px);box-shadow:0 12px 32px #0002}.panel h1,.panel h2{text-align:center;margin-top:0}.field{display:flex;flex-direction:column;gap:5px;margin:10px 0}.field label{font-size:13px;font-weight:700}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:white}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.app{display:none;min-height:100vh}.app.active{display:flex}.sidebar{width:240px;flex-shrink:0;background:var(--dark);color:white;padding:18px 12px}.sidebar h2{font-size:18px;text-align:center}.nav{display:block;width:100%;text-align:right;background:transparent;color:white;margin:5px 0}.nav.active,.nav:hover{background:#ffffff24}.main{min-width:0;flex:1}.top{background:white;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);flex-wrap:wrap}.content{padding:20px;max-width:1500px;margin:auto}.page{display:none}.page.active{display:block}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}.stat,.card{background:white;border:1px solid var(--border);border-radius:12px;padding:17px;margin-bottom:15px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:23px;margin-top:4px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:right;padding:10px;border-bottom:1px solid var(--border);white-space:normal;vertical-align:top}th{background:#f8fafc;color:var(--muted);white-space:nowrap}.badge{display:inline-block;padding:3px 8px;border-radius:6px;background:#e2e8f0;font-size:11px;font-weight:700}.badge.green{background:#d1fae5;color:#065f46}.badge.orange{background:#fef3c7;color:#92400e}.badge.red{background:#fee2e2;color:#991b1b}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:15px;z-index:10}.modal.active{display:flex}.modalbox{background:white;border-radius:14px;padding:22px;width:min(100%,650px);max-height:90vh;overflow:auto}.notice{padding:12px;border-radius:8px;background:#eff6ff;margin:12px 0;font-size:13px}.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.inline input{flex:1;min-width:160px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}.toolbar input{padding:9px;border:1px solid var(--border);border-radius:8px}.bar{height:10px;background:#e2e8f0;border-radius:20px;overflow:hidden;margin:8px 0}.bar span{display:block;height:100%;background:var(--primary)}@media(max-width:800px){.app.active{display:block}.sidebar{width:100%;padding:10px}.sidebar h2{margin:5px}.nav{display:inline-block;width:auto}.content{padding:12px}.top{padding:12px}.screen{padding:12px}.panel{padding:18px}th,td{min-width:100px}}
+:root {
+  --primary: #2563eb; --primary-dark: #1d4ed8; --primary-light: #eff6ff;
+  --dark: #0f172a; --darker: #020617;
+  --bg: #f8fafc; --surface: #ffffff;
+  --text: #0f172a; --muted: #64748b;
+  --border: #e2e8f0; --success: #059669; --success-bg: #d1fae5;
+  --warning: #d97706; --warning-bg: #fef3c7;
+  --danger: #dc2626; --danger-bg: #fee2e2;
+  --radius: 14px; --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] {
+  --bg: #0b0f19; --surface: #151c2c;
+  --text: #f1f5f9; --muted: #94a3b8;
+  --border: #28334e; --primary-light: #1e293b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+button, input, select, textarea { font: inherit; outline: none; }
+button { cursor: pointer; border: none; border-radius: 10px; padding: 10px 18px; font-weight: 700; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+button:active { transform: scale(0.97); }
+
+.primary { background: var(--primary); color: #fff; } .primary:hover { background: var(--primary-dark); }
+.success { background: var(--success); color: #fff; }
+.danger { background: var(--danger); color: #fff; }
+.warning { background: var(--warning); color: #fff; }
+.secondary { background: var(--muted); color: #fff; }
+.outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.outline:hover { background: var(--primary-light); }
+.hidden { display: none !important; }
+
+/* Toast Notifications */
+#toast-container { position: fixed; top: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; max-width: 320px; }
+.toast { background: var(--surface); color: var(--text); padding: 14px 18px; border-radius: var(--radius); border-right: 5px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.15); font-size: 14px; font-weight: 600; animation: slideIn 0.3s ease; }
+.toast.success { border-color: var(--success); } .toast.danger { border-color: var(--danger); }
+@keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* Screen Layouts */
+.screen { min-height: 100vh; padding: 20px; display: flex; align-items: center; justify-content: center; }
+.auth { background: linear-gradient(135deg, var(--darker), var(--dark)); position: relative; }
+.panel { background: var(--surface); border-radius: 24px; padding: 36px; width: min(100%, 650px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 1px solid var(--border); }
+.panel h1, .panel h2 { text-align: center; margin-bottom: 8px; font-weight: 800; color: var(--text); }
+
+/* Form Fields */
+.field { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
+.field label { font-size: 13px; font-weight: 700; color: var(--text); }
+.field input, .field select, .field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); transition: border 0.2s; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+/* App Structure */
+.app { display: none; min-height: 100vh; }
+.app.active { display: flex; flex-direction: column; }
+@media(min-width: 900px) { .app.active { flex-direction: row; } }
+
+.sidebar { width: 100%; background: var(--dark); color: #fff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+@media(min-width: 900px) { .sidebar { width: 270px; min-height: 100vh; position: fixed; top: 0; right: 0; bottom: 0; } }
+.sidebar h2 { font-size: 22px; text-align: center; margin-bottom: 24px; font-weight: 900; color: #38bdf8; letter-spacing: 0.5px; }
+
+.nav-container { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; flex: 1; }
+.nav { width: 100%; text-align: right; background: transparent; color: #94a3b8; padding: 12px 16px; border-radius: 10px; font-weight: 600; border: none; justify-content: flex-start; }
+.nav.active, .nav:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+#logout { margin-top: 20px; background: rgba(220, 38, 38, 0.15); color: #fca5a5; }
+#logout:hover { background: var(--danger); color: #fff; }
+
+.main { flex: 1; min-width: 0; }
+@media(min-width: 900px) { .main { margin-right: 270px; } }
+
+.top { background: var(--surface); padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(8px); }
+.content { padding: 28px; max-width: 1400px; margin: auto; }
+
+/* Stats & Cards */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat, .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); margin-bottom: 20px; }
+.stat small { color: var(--muted); font-weight: 700; font-size: 12px; }
+.stat strong { display: block; font-size: 26px; margin-top: 6px; font-weight: 800; color: var(--text); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); margin-top: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: right; background: var(--surface); }
+th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+th { background: var(--primary-light); color: var(--muted); font-weight: 700; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+
+.badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; text-align: center; }
+.badge.green { background: var(--success-bg); color: var(--success); }
+.badge.orange { background: var(--warning-bg); color: var(--warning); }
+.badge.red { background: var(--danger-bg); color: var(--danger); }
+
+/* Modal & Tools */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 100; }
+.modal.active { display: flex; }
+.modalbox { background: var(--surface); border-radius: 20px; padding: 28px; width: min(100%, 720px); max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 1px solid var(--border); }
+.notice { padding: 14px 18px; border-radius: 10px; background: var(--primary-light); color: var(--primary-dark); margin: 14px 0; font-size: 13px; border: 1px solid var(--border); font-weight: 600; }
+.bar { height: 12px; background: var(--border); border-radius: 20px; overflow: hidden; margin: 10px 0; }
+.bar span { display: block; height: 100%; background: var(--primary); border-radius: 20px; transition: width 0.5s ease; }
+
+/* Voucher Print Style */
+.voucher-card { border: 2px dashed var(--primary); padding: 16px; border-radius: 12px; text-align: center; background: var(--surface); }
+.voucher-code { font-size: 20px; font-weight: 900; letter-spacing: 3px; color: var(--primary); margin: 8px 0; background: var(--primary-light); padding: 6px; border-radius: 8px; }
+
+@media print { body * { visibility: hidden; } .modalbox, .modalbox * { visibility: visible; } .modalbox { position: absolute; left: 0; top: 0; width: 100%; } }
 </style>
 </head>
 <body>
+
+<div id="toast-container"></div>
+
+<!-- شاشة الإعداد الأول للمدير -->
 <section id="setup" class="screen auth">
- <div class="panel"><h1>HINON TECHNOLOGY</h1><p class="muted" style="text-align:center">إعداد حساب المدير الرئيسي</p>
- <form id="setupForm"><div class="field"><label>اسم المدير</label><input id="setupUser" required autocomplete="username"></div><div class="field"><label>كلمة المرور (8 أحرف على الأقل)</label><input id="setupPass" type="password" minlength="8" required autocomplete="new-password"></div><button class="primary" style="width:100%">إنشاء حساب المدير</button></form></div>
+  <div class="panel">
+    <h1>HINON TECHNOLOGY</h1>
+    <p class="muted" style="text-align:center; margin-bottom: 20px;">تهيئة المدير الرئيسي للشبكة (المسؤول الأول)</p>
+    <form id="setupForm">
+      <div class="field"><label>اسم مدير النظام</label><input id="setupUser" required autocomplete="username" placeholder="مثال: admin"></div>
+      <div class="field"><label>كلمة المرور (8 عناصر على الأقل)</label><input id="setupPass" type="password" minlength="8" required autocomplete="new-password"></div>
+      <button class="primary" style="width:100%; margin-top:12px;">تأكيد وإنشاء الحساب</button>
+    </form>
+  </div>
 </section>
-<section id="login" class="screen auth hidden"><div class="panel"><h1>HINON TECHNOLOGY</h1><p class="muted" style="text-align:center">بوابة المشتركين والإدارة</p>
-<form id="loginForm"><div class="field"><label>اسم المستخدم أو رقم الهاتف</label><input id="loginUser" required autocomplete="username"></div><div class="field"><label>كلمة المرور</label><input id="loginPass" type="password" required autocomplete="current-password"></div><button class="primary" style="width:100%">تسجيل الدخول</button></form><div class="actions"><button class="warning" style="width:100%" id="toRegister">طلب اشتراك جديد</button></div></div></section>
-<section id="register" class="screen auth hidden"><div class="panel"><h2>طلب اشتراك جديد</h2><p class="muted">يُرسل الطلب للإدارة للمراجعة. لا يتم تفعيل الخدمة أو إثبات الدفع تلقائيًا.</p>
-<form id="registerForm"><div class="grid">
-<div class="field"><label>الاسم الكامل</label><input id="rName" required maxlength="100"></div>
-<div class="field"><label>رقم الهاتف</label><input id="rPhone" required maxlength="30"></div>
-<div class="field"><label>كلمة مرور الحساب</label><input id="rPass" type="password" minlength="8" required></div>
-<div class="field"><label>المدينة / المنطقة</label><input id="rCity" required></div>
-<div class="field"><label>الشارع</label><input id="rStreet" required></div>
-<div class="field"><label>رقم البناء / الشقة</label><input id="rHouse" required></div>
-<div class="field"><label>البرج / الكبينة</label><input id="rTower" required></div>
-<div class="field"><label>طريقة التوصيل</label><select id="rSource"><option value="صحن">صحن / أنتينا</option><option value="علبة">علبة قريبة</option></select></div>
-<div class="field"><label>الباقة</label><select id="rPackage" required></select></div>
-<div class="field"><label>صحن استقبال مطلوب؟</label><select id="rDish"><option value="no">لا</option><option value="yes">نعم</option></select></div>
-<div class="field"><label>راوتر مطلوب؟</label><select id="rRouter"><option value="no">لا</option><option value="yes">نعم</option></select></div>
-<div class="field"><label>تمديد كبل؟</label><select id="rCable"><option value="yes">نعم</option><option value="no">لا</option></select></div>
-<div class="field"><label>طول الكبل بالمتر</label><input id="rCableLength" type="number" min="0" value="15"></div>
-<div class="field"><label>المبلغ المدفوع مقدمًا ($)</label><input id="rPaid" type="number" min="0" step=".01" value="0"></div>
-</div><div id="estimate" class="notice"></div><div class="actions"><button class="success">إرسال طلب الاشتراك</button><button type="button" class="secondary" id="registerBack">رجوع</button></div></form></div></section>
-<div id="app" class="app"><aside class="sidebar"><h2>HINON TECH</h2><div id="navItems"></div><button class="nav" id="logout">تسجيل الخروج</button></aside><main class="main"><header class="top"><strong id="welcome">لوحة التحكم</strong><span id="roleTag" class="badge">محلي</span></header><div class="content" id="content"></div></main></div>
-<div class="modal" id="modal"><div class="modalbox"><div class="toolbar"><h3 id="modalTitle">تفاصيل</h3><button class="danger" id="modalClose">إغلاق</button></div><div id="modalBody"></div></div></div>
+
+<!-- شاشة تسجيل الدخول -->
+<section id="login" class="screen auth hidden">
+  <div class="panel">
+    <h1>HINON TECHNOLOGY</h1>
+    <p class="muted" style="text-align:center; margin-bottom: 24px;">بوابة المشتركين وطاقم الإدارة والشبكات</p>
+    <form id="loginForm">
+      <div class="field"><label>اسم المستخدم / رقم الهاتف / حساب PPPoE</label><input id="loginUser" required autocomplete="username"></div>
+      <div class="field"><label>كلمة المرور</label><input id="loginPass" type="password" required autocomplete="current-password"></div>
+      <button class="primary" style="width:100%; margin-top:10px;">تسجيل الدخول</button>
+    </form>
+    <div class="actions" style="margin-top:15px; display:flex; gap:10px;">
+      <button class="warning" style="flex:1;" id="toRegister">طلب اشتراك جديد</button>
+      <button class="outline" id="toVoucherRedeem">شحن كرت</button>
+    </div>
+  </div>
+</section>
+
+<!-- شاشة شحن كروت التعبئة السريعة -->
+<section id="voucherRedeem" class="screen auth hidden">
+  <div class="panel" style="width: min(100%, 480px);">
+    <h2>شحن رصيد / باقة بكرت</h2>
+    <p class="muted" style="text-align:center; margin-bottom: 15px;">أدخل رقم الهاتف وكود الكرت لتفعيل الباقة فوراً</p>
+    <form id="voucherForm">
+      <div class="field"><label>رقم الهاتف المسجل</label><input id="vPhone" required placeholder="09xxxxxxxx"></div>
+      <div class="field"><label>كود الكرت (Voucher Code)</label><input id="vCode" required placeholder="XXXX-XXXX-XXXX"></div>
+      <button class="success" style="width:100%; margin-top:10px;">تفعيل الكرت الآن</button>
+      <button type="button" class="outline" style="width:100%; margin-top:8px;" id="vBack">العودة لتسجيل الدخول</button>
+    </form>
+  </div>
+</section>
+
+<!-- شاشة طلب اشتراك جديد -->
+<section id="register" class="screen auth hidden">
+  <div class="panel" style="width: min(100%, 820px);">
+    <h2>تقديم طلب اشتراك جديد</h2>
+    <p class="muted" style="margin-bottom: 15px;">سيتم معالجة الطلب وتعيين الفني لتوصيل الخدمة.</p>
+    <form id="registerForm">
+      <div class="grid">
+        <div class="field"><label>الاسم الكامل</label><input id="rName" required maxlength="100"></div>
+        <div class="field"><label>رقم الهاتف</label><input id="rPhone" required maxlength="30"></div>
+        <div class="field"><label>كلمة مرور الحساب</label><input id="rPass" type="password" minlength="8" required></div>
+        <div class="field"><label>المدينة / المنطقة</label><input id="rCity" required></div>
+        <div class="field"><label>الشارع / الحي</label><input id="rStreet" required></div>
+        <div class="field"><label>رقم البناء / الشقة</label><input id="rHouse" required></div>
+        <div class="field"><label>اسم البرج / الكبينة</label><input id="rTower" required></div>
+        <div class="field"><label>طريقة التوصيل</label><select id="rSource"><option value="صحن">صحن / أنتينا</option><option value="علبة">علبة قريبة (كبل ضوئي/نحاسي)</option></select></div>
+        <div class="field"><label>الباقة المطلوبة</label><select id="rPackage" required></select></div>
+        <div class="field"><label>صحن استقبال؟</label><select id="rDish"><option value="no">لا</option><option value="yes">نعم</option></select></div>
+        <div class="field"><label>راوتر موزّع؟</label><select id="rRouter"><option value="no">لا</option><option value="yes">نعم</option></select></div>
+        <div class="field"><label>تمديد كبل؟</label><select id="rCable"><option value="yes">نعم</option><option value="no">لا</option></select></div>
+        <div class="field"><label>طول الكبل (متر)</label><input id="rCableLength" type="number" min="0" value="15"></div>
+        <div class="field"><label>المبلغ المدفوع مقدمًا ($)</label><input id="rPaid" type="number" min="0" step=".01" value="0"></div>
+      </div>
+      <div id="estimate" class="notice"></div>
+      <div class="actions">
+        <button class="success" style="flex:2;">إرسال الطلب للإدارة</button>
+        <button type="button" class="secondary" id="registerBack" style="flex:1;">رجوع</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- لوحة النظام الرئيسية -->
+<div id="app" class="app">
+  <aside class="sidebar">
+    <div>
+      <h2>HINON TECH</h2>
+      <div id="navItems" class="nav-container"></div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <button class="outline" id="toggleTheme" style="color:#fff; border-color:rgba(255,255,255,0.2);">🌓 المظهر (ليلي/نهاري)</button>
+      <button class="nav" id="logout">تسجيل الخروج</button>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <div>
+        <strong id="welcome" style="font-size: 18px;">لوحة التحكم</strong>
+        <small id="roleTag" class="badge green" style="margin-right:8px;">محلي</small>
+      </div>
+      <div id="topActions" style="display:flex; gap:10px;"></div>
+    </header>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<!-- Modal النافذة المنبثقة -->
+<div class="modal" id="modal">
+  <div class="modalbox">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+      <h3 id="modalTitle" style="font-size: 18px;">تفاصيل</h3>
+      <button class="danger" id="modalClose" style="padding: 6px 12px; font-size: 12px;">إغلاق</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
 <script>
 'use strict';
-const $=id=>document.getElementById(id);
-const KEY='hinon_v13_clean_data';
-const defaults=()=>({admin:null,users:[],packages:[
-{id:1,name:'2 ميجا الاقتصادية',price:15,speedKb:2000,discountNew:10,limitGb:100,throttledKb:512,days:30},
-{id:2,name:'4 ميجا Pro',price:25,speedKb:4000,discountNew:15,limitGb:200,throttledKb:1000,days:30},
-{id:3,name:'8 ميجا VIP',price:45,speedKb:8000,discountNew:20,limitGb:400,throttledKb:2000,days:30}],
-hardware:{installation:10,cableM:.5,dish:40,router:25,box:15},finance:{debtDays:5,minPayment:5},requests:[],tickets:[],logs:[],settings:{qr:'',iban:'',ticker:'أهلاً بكم في HINON TECHNOLOGY'}});
-let db;try{db={...defaults(),...JSON.parse(localStorage.getItem(KEY)||'{}')};const d=defaults();for(const k of Object.keys(d))if(db[k]===undefined)db[k]=d[k];}catch{db=defaults()}
-let session=null, activePage='home';
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){alert('تعذر حفظ البيانات محليًا. قد تكون مساحة التخزين ممتلئة.');return false}}
-function log(action){db.logs.unshift({date:new Date().toLocaleString('ar'),user:session?.name||'النظام',action});db.logs=db.logs.slice(0,300);persist()}
-function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function money(n){return '$'+(Number(n)||0).toFixed(2)}
-function datePlus(days){let d=new Date();d.setDate(d.getDate()+days);return d.toISOString().slice(0,10)}
-function screen(id){['setup','login','register'].forEach(x=>$(x).classList.toggle('hidden',x!==id));$('app').classList.remove('active')}
-function modal(title,html){$('modalTitle').textContent=title;$('modalBody').innerHTML=html;$('modal').classList.add('active')}
-function closeModal(){$('modal').classList.remove('active')}
-$('modalClose').onclick=closeModal;
-function init(){if(!db.admin)screen('setup');else screen('login');fillPackages();$('rPackage').onchange=estimate;$('rPaid').oninput=estimate;['rDish','rRouter','rCable','rCableLength','rSource'].forEach(id=>$(id).addEventListener('change',estimate));$('rCableLength').addEventListener('input',estimate)}
-$('setupForm').onsubmit=e=>{e.preventDefault();db.admin={username:$('setupUser').value.trim(),password:$('setupPass').value};persist();log('إنشاء حساب المدير');screen('login')};
-$('loginForm').onsubmit=e=>{e.preventDefault();const name=$('loginUser').value.trim(),pass=$('loginPass').value; if(db.admin&&name===db.admin.username&&pass===db.admin.password){session={role:'admin',name};openApp();return}const u=db.users.find(x=>(x.phone===name||x.pppoeUser===name)&&x.password===pass);if(!u)return alert('بيانات الدخول غير صحيحة');if(['بانتظار الموافقة','مرفوض'].includes(u.status))return alert('حالة الحساب: '+u.status);session={role:'client',...u};openApp()};
-$('toRegister').onclick=()=>{fillPackages();screen('register');estimate()};$('registerBack').onclick=()=>screen('login');
-function fillPackages(){$('rPackage').innerHTML=db.packages.map(p=>`<option value="${p.id}">${esc(p.name)} — ${money(p.price)} — ${p.speedKb} KB</option>`).join('')}
-function estimate(){if(!$('rPackage').options.length)return;const p=db.packages.find(p=>p.id===Number($('rPackage').value))||db.packages[0];if(!p)return;let hw=$('rSource').value==='علبة'?db.hardware.box:($('rDish').value==='yes'?db.hardware.dish:0);if($('rRouter').value==='yes')hw+=db.hardware.router;if($('rCable').value==='yes')hw+=Math.max(0,Number($('rCableLength').value)||0)*db.hardware.cableM;const discount=p.price*(p.discountNew||0)/100;const total=p.price-discount+db.hardware.installation+hw;const paid=Math.max(0,Number($('rPaid').value)||0);$('estimate').innerHTML=`سعر الباقة: <b>${money(p.price)}</b> | الخصم: <b>${money(discount)}</b> | التركيب: <b>${money(db.hardware.installation)}</b> | العتاد والكبل: <b>${money(hw)}</b><br>الإجمالي: <b>${money(total)}</b> | المدفوع: <b>${money(paid)}</b> | المتبقي: <b>${money(Math.max(0,total-paid))}</b>`}
-$('registerForm').onsubmit=e=>{e.preventDefault();const phone=$('rPhone').value.trim();if(db.users.some(u=>u.phone===phone))return alert('رقم الهاتف مسجل مسبقًا');const p=db.packages.find(x=>x.id===Number($('rPackage').value));if(!p)return alert('اختر باقة صالحة');const price=p.price*(1-(p.discountNew||0)/100);let hw=$('rSource').value==='علبة'?db.hardware.box:($('rDish').value==='yes'?db.hardware.dish:0);if($('rRouter').value==='yes')hw+=db.hardware.router;if($('rCable').value==='yes')hw+=Math.max(0,Number($('rCableLength').value)||0)*db.hardware.cableM;const total=price+db.hardware.installation+hw,paid=Math.max(0,Number($('rPaid').value)||0);if(paid>total)return alert('المبلغ المدفوع لا يمكن أن يتجاوز إجمالي التكلفة');const user={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),role:'client',name:$('rName').value.trim(),phone,password:$('rPass').value,city:$('rCity').value.trim(),street:$('rStreet').value.trim(),house:$('rHouse').value.trim(),tower:$('rTower').value.trim(),source:$('rSource').value,hardware:hw,pkgName:p.name,paid,debt:Math.max(0,total-paid),total,usedGb:0,pppoeUser:'hn_'+phone.replace(/\D/g,'').slice(-8),pppoePass:'غير مُنشأ',staticIp:'تلقائي (DHCP)',exp:'غير مفعل',debtDueDate:datePlus(db.finance.debtDays),status:'بانتظار الموافقة'};db.users.push(user);db.requests.unshift({id:user.id,phone,name:user.name,type:'اشتراك جديد',pkgName:p.name,total,paidAmount:paid,debt:user.debt,txn:'',status:'بانتظار الموافقة',date:new Date().toLocaleString('ar')});persist();log('استلام طلب اشتراك جديد: '+phone);alert('تم إرسال طلبك للإدارة. انتظر الموافقة.');$('registerForm').reset();fillPackages();screen('login')};
-function openApp(){screen('login');$('app').classList.add('active');$('welcome').textContent=session.name;$('roleTag').textContent=session.role==='admin'?'مدير':'مشترك';buildNav();render()}
-function buildNav(){const items=session.role==='admin'?[['home','الرئيسية'],['requests','طلبات الاشتراك والدفع'],['users','المشتركون'],['packages','الباقات والأسعار'],['finance','المالية'],['support','الدعم الفني'],['settings','الإعدادات'],['logs','سجل النشاطات']]:[['home','حسابي'],['pay','الدفعات والتجديد'],['support','الدعم الفني']];$('navItems').innerHTML=items.map(([id,label])=>`<button class="nav ${activePage===id?'active':''}" data-page="${id}">${label}</button>`).join('');$('navItems').querySelectorAll('button').forEach(b=>b.onclick=()=>{activePage=b.dataset.page;buildNav();render()})}
-function table(headers,rows){return `<div class="table-wrap"><table><thead><tr>${headers.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${rows||`<tr><td colspan="${headers.length}">لا توجد بيانات</td></tr>`}</tbody></table></div>`}
-function btn(label,cls,action){return `<button class="${cls}" data-action="${action}">${label}</button>`}
-function render(){if(!session)return;const admin=session.role==='admin';let html='';
-if(admin&&activePage==='home'){html=`<div class="stats"><div class="stat"><small>المشتركون</small><strong>${db.users.length}</strong></div><div class="stat"><small>الطلبات المعلقة</small><strong>${db.requests.filter(r=>r.status.includes('انتظار')).length}</strong></div><div class="stat"><small>إجمالي الديون</small><strong>${money(db.users.reduce((s,u)=>s+(Number(u.debt)||0),0))}</strong></div><div class="stat"><small>تذاكر الدعم المفتوحة</small><strong>${db.tickets.filter(t=>t.status==='قيد الانتظار').length}</strong></div></div><div class="card"><h3>نظرة عامة</h3><p>هذه نسخة محلية تحفظ البيانات في هذا المتصفح فقط. لم يتم ربطها بخادم سحابي أو جهاز MikroTik.</p></div>`}
-else if(admin&&activePage==='requests'){html=`<div class="card"><div class="toolbar"><h3>طلبات الاشتراك والدفعات</h3><button class="primary" id="exportReq">تصدير CSV</button></div>${table(['الاسم / الهاتف','نوع الطلب','التفاصيل','المبلغ','رقم العملية','الحالة','الإجراء'],db.requests.map(r=>`<tr><td>${esc(r.name)}<br>${esc(r.phone)}</td><td>${esc(r.type)}</td><td>${esc(r.pkgName||'—')}</td><td>الإجمالي ${money(r.total)}<br>مدفوع ${money(r.paidAmount)}<br>دين ${money(r.debt)}</td><td>${esc(r.txn||'لم يُدخل')}</td><td>${esc(r.status)}</td><td>${btn('موافقة','success','approve:'+r.id)} ${btn('رفض','danger','reject:'+r.id)} ${btn('رقم العملية','secondary','txn:'+r.id)}</td></tr>`).join(''))}</div>`}
-else if(admin&&activePage==='users'){html=`<div class="card"><div class="toolbar"><h3>إدارة المشتركين</h3><div><input id="userSearch" placeholder="بحث بالاسم أو الهاتف"><button class="primary" id="addUser">إضافة مشترك</button><button class="secondary" id="exportUsers">تصدير CSV</button></div></div><div id="usersTable">${usersTable(db.users)}</div></div>`}
-else if(admin&&activePage==='packages'){html=`<div class="card"><h3>إضافة باقة</h3><form id="pkgForm" class="grid"><div class="field"><label>الاسم</label><input id="pName" required></div><div class="field"><label>السعر ($)</label><input id="pPrice" type="number" min="0" step=".01" required></div><div class="field"><label>السرعة (KB)</label><input id="pSpeed" type="number" min="1" required></div><div class="field"><label>خصم الجدد (%)</label><input id="pDiscount" type="number" min="0" max="100" value="10" required></div><div class="field"><label>السعة (GB)</label><input id="pLimit" type="number" min="1" value="100" required></div><div class="field"><label>السرعة بعد السعة (KB)</label><input id="pThrottle" type="number" min="1" value="512" required></div><button class="success">إضافة الباقة</button></form></div><div class="card">${table(['الباقة','السعر','السرعة','الخصم','السعة','إجراء'],db.packages.map(p=>`<tr><td>${esc(p.name)}</td><td>${money(p.price)}</td><td>${p.speedKb} KB</td><td>${p.discountNew}%</td><td>${p.limitGb} GB</td><td>${btn('حذف','danger','delpkg:'+p.id)}</td></tr>`).join(''))}</div><div class="card"><h3>أسعار التركيب والعتاد ($)</h3><form id="hardwareForm" class="grid">${[['installation','أجور التركيب'],['cableM','سعر متر الكبل'],['dish','سعر الصحن'],['router','سعر الراوتر'],['box','توصيل العلبة']].map(([k,l])=>`<div class="field"><label>${l}</label><input name="${k}" type="number" min="0" step=".01" value="${db.hardware[k]}" required></div>`).join('')}<button class="success">حفظ الأسعار</button></form></div>`}
-else if(admin&&activePage==='finance'){html=`<div class="card"><h3>شروط السداد</h3><form id="financeForm" class="grid"><div class="field"><label>مهلة السداد بالأيام</label><input id="debtDays" type="number" min="0" value="${db.finance.debtDays}" required></div><div class="field"><label>الحد الأدنى للدفعة ($)</label><input id="minPay" type="number" min="0" step=".01" value="${db.finance.minPayment}" required></div><button class="success">حفظ</button></form><p>الفصل هنا حالة داخل النظام المحلي فقط؛ لا يوقف الخدمة فعليًا على MikroTik.</p></div>`}
-else if(admin&&activePage==='support'){html=`<div class="card"><h3>تذاكر الدعم</h3>${table(['المشترك','الموضوع','الرسالة','التاريخ','الحالة','إجراء'],db.tickets.map(t=>`<tr><td>${esc(t.userName)}<br>${esc(t.phone)}</td><td>${esc(t.subject)}</td><td>${esc(t.body)}<br><b>الرد:</b> ${esc(t.reply||'—')}</td><td>${esc(t.date)}</td><td>${esc(t.status)}</td><td>${btn('رد','primary','reply:'+t.id)}</td></tr>`).join(''))}</div>`}
-else if(admin&&activePage==='settings'){html=`<div class="card"><h3>إعدادات الدفع والإعلان</h3><form id="settingsForm"><div class="field"><label>رقم الحساب / IBAN</label><input id="iban" value="${esc(db.settings.iban)}"></div><div class="field"><label>رابط صورة QR</label><input id="qr" type="url" value="${esc(db.settings.qr)}" placeholder="https://..."></div><div class="field"><label>نص إعلان شاشة الدخول</label><input id="ticker" value="${esc(db.settings.ticker)}"></div><button class="primary">حفظ</button></form><p class="notice">لا تخزن مفاتيح Firebase أو GitHub السرية داخل ملف HTML عام. إعدادات هذه النسخة لا تنشئ اتصالًا سحابيًا.</p><button class="danger" id="reset">مسح كل البيانات المحلية</button></div>`}
-else if(admin&&activePage==='logs'){html=`<div class="card"><h3>سجل النشاطات</h3>${table(['التاريخ','المستخدم','العملية'],db.logs.map(l=>`<tr><td>${esc(l.date)}</td><td>${esc(l.user)}</td><td>${esc(l.action)}</td></tr>`).join(''))}</div>`}
-else if(!admin&&activePage==='home'){const u=db.users.find(x=>x.id===session.id)||session;const p=db.packages.find(x=>x.name===u.pkgName);const used=Number(u.usedGb)||0,limit=p?.limitGb||100;html=`<div class="stats"><div class="stat"><small>الباقة</small><strong>${esc(u.pkgName)}</strong></div><div class="stat"><small>الانتهاء</small><strong>${esc(u.exp)}</strong></div><div class="stat"><small>الدين</small><strong>${money(u.debt)}</strong></div></div><div class="card"><h3>بيانات الاتصال</h3><p>اسم PPPoE: <b>${esc(u.pppoeUser)}</b></p><p>كلمة مرور PPPoE: <b>${esc(u.pppoePass)}</b></p><p>الحالة: <span class="badge">${esc(u.status)}</span></p><p>السرعة الاسمية: ${p?.speedKb||'—'} KB</p><p>الاستهلاك المسجل: ${used} / ${limit} GB</p><div class="bar"><span style="width:${Math.min(100,used/limit*100)}%"></span></div><p class="muted">عداد الاستهلاك يدوي في هذه النسخة، وليس قراءة مباشرة من جهاز الشبكة.</p></div>`}
-else if(!admin&&activePage==='pay'){const u=db.users.find(x=>x.id===session.id)||session;html=`<div class="card"><h3>طلب تسديد دين أو تجديد</h3><p>الدين المسجل: <b>${money(u.debt)}</b></p>${db.settings.qr?`<p><a href="${esc(db.settings.qr)}" target="_blank" rel="noopener">عرض QR للدفع</a></p>`:''}${db.settings.iban?`<p>حساب التحويل: <code>${esc(db.settings.iban)}</code></p>`:''}<form id="payForm"><div class="grid"><div class="field"><label>نوع الطلب</label><select id="payType"><option value="تسديد دين">تسديد دين</option><option value="تجديد باقة">تجديد باقة</option></select></div><div class="field"><label>المبلغ ($)</label><input id="payAmount" type="number" min=".01" step=".01" required></div><div class="field"><label>رقم عملية التحويل</label><input id="payTxn" required maxlength="100"></div></div><button class="success">إرسال للمراجعة</button></form><p class="notice">إرسال رقم العملية لا يثبت وصول الأموال؛ الإدارة تتحقق منها يدويًا.</p></div>`}
-else if(!admin&&activePage==='support'){const u=db.users.find(x=>x.id===session.id)||session;html=`<div class="card"><h3>إرسال تذكرة دعم</h3><form id="ticketForm"><div class="field"><label>الموضوع</label><input id="ticketSubject" required></div><div class="field"><label>التفاصيل</label><textarea id="ticketBody" required rows="4"></textarea></div><button class="primary">إرسال التذكرة</button></form></div><div class="card"><h3>تذاكري</h3>${table(['الموضوع','التاريخ','الحالة','الرد'],db.tickets.filter(t=>t.phone===u.phone).map(t=>`<tr><td>${esc(t.subject)}</td><td>${esc(t.date)}</td><td>${esc(t.status)}</td><td>${esc(t.reply||'بانتظار الرد')}</td></tr>`).join(''))}</div>`}
-$('content').innerHTML=html;bindPageEvents()}
-function usersTable(users){return table(['الاسم والهاتف','PPPoE','الباقة','الانتهاء','الدين','الحالة','إجراءات'],users.map(u=>`<tr><td>${esc(u.name)}<br>${esc(u.phone)}</td><td>${esc(u.pppoeUser)}</td><td>${esc(u.pkgName)}</td><td>${esc(u.exp)}</td><td>${money(u.debt)}</td><td>${esc(u.status)}</td><td>${btn('تعديل','primary','edit:'+u.id)} ${btn(u.status==='نشط'?'إيقاف':'تفعيل','warning','toggle:'+u.id)} ${btn('حذف','danger','delete:'+u.id)}</td></tr>`).join(''))}
-function bindPageEvents(){
-$('content').querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>act(b.dataset.action));
-if($('userSearch'))$('userSearch').oninput=()=>{$('usersTable').innerHTML=usersTable(db.users.filter(u=>(u.name+u.phone+u.pppoeUser).toLowerCase().includes($('userSearch').value.toLowerCase())))};
-if($('addUser'))$('addUser').onclick=()=>modal('إضافة مشترك',`<form id="manualUser"><div class="grid"><div class="field"><label>الاسم</label><input id="muName" required></div><div class="field"><label>الهاتف</label><input id="muPhone" required></div><div class="field"><label>كلمة المرور</label><input id="muPass" minlength="8" required></div><div class="field"><label>الباقة</label><select id="muPkg">${db.packages.map(p=>`<option>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>الدين ($)</label><input id="muDebt" type="number" min="0" step=".01" value="0"></div></div><button class="success">إضافة</button></form>`);
-if($('manualUser'))$('manualUser').onsubmit=e=>{e.preventDefault();if(db.users.some(u=>u.phone===$('muPhone').value.trim()))return alert('الهاتف مسجل مسبقًا');const u={id:String(Date.now()),role:'client',name:$('muName').value.trim(),phone:$('muPhone').value.trim(),password:$('muPass').value,pkgName:$('muPkg').value,debt:Number($('muDebt').value)||0,usedGb:0,pppoeUser:'hn_'+Date.now().toString().slice(-8),pppoePass:'غير مُنشأ',exp:datePlus(30),status:'نشط',staticIp:'DHCP'};db.users.push(u);persist();log('إضافة مشترك يدوي: '+u.phone);closeModal();render()};
-if($('pkgForm'))$('pkgForm').onsubmit=e=>{e.preventDefault();db.packages.push({id:Date.now(),name:$('pName').value.trim(),price:Number($('pPrice').value),speedKb:Number($('pSpeed').value),discountNew:Number($('pDiscount').value),limitGb:Number($('pLimit').value),throttledKb:Number($('pThrottle').value),days:30});persist();log('إضافة باقة');render()};
-if($('hardwareForm'))$('hardwareForm').onsubmit=e=>{e.preventDefault();db.hardware=Object.fromEntries(new FormData(e.target).entries());for(const k in db.hardware)db.hardware[k]=Number(db.hardware[k]);persist();alert('تم حفظ الأسعار');render()};
-if($('financeForm'))$('financeForm').onsubmit=e=>{e.preventDefault();db.finance={debtDays:Number($('debtDays').value),minPayment:Number($('minPay').value)};persist();log('تعديل شروط السداد');alert('تم الحفظ')};
-if($('settingsForm'))$('settingsForm').onsubmit=e=>{e.preventDefault();db.settings={iban:$('iban').value.trim(),qr:$('qr').value.trim(),ticker:$('ticker').value.trim()};persist();log('تعديل إعدادات الدفع');alert('تم الحفظ')};
-if($('ticketForm'))$('ticketForm').onsubmit=e=>{e.preventDefault();const u=db.users.find(x=>x.id===session.id)||session;db.tickets.unshift({id:String(Date.now()),phone:u.phone,userName:u.name,subject:$('ticketSubject').value.trim(),body:$('ticketBody').value.trim(),reply:'',status:'قيد الانتظار',date:new Date().toLocaleString('ar')});persist();log('إرسال تذكرة دعم');render();alert('تم إرسال التذكرة')};
-if($('payForm'))$('payForm').onsubmit=e=>{e.preventDefault();const u=db.users.find(x=>x.id===session.id)||session;const type=$('payType').value,amount=Number($('payAmount').value),txn=$('payTxn').value.trim();if(amount<=0||!txn)return alert('تحقق من المبلغ ورقم العملية');if(type==='تسديد دين'&&amount>Number(u.debt||0))return alert('المبلغ أكبر من الدين المسجل');db.requests.unshift({id:String(Date.now()),phone:u.phone,name:u.name,type,pkgName:u.pkgName,paidAmount:amount,txn,status:'بانتظار الموافقة',date:new Date().toLocaleString('ar')});persist();log('طلب '+type+' للمشترك '+u.phone);render();alert('تم إرسال الطلب للمراجعة اليدوية')};
-if($('exportUsers'))$('exportUsers').onclick=()=>csv('hinon-users.csv',db.users);
-if($('exportReq'))$('exportReq').onclick=()=>csv('hinon-requests.csv',db.requests);
-if($('reset'))$('reset').onclick=()=>{if(confirm('سيتم حذف جميع بيانات HINON المحفوظة في هذا المتصفح. هل تريد المتابعة؟')){localStorage.removeItem(KEY);location.reload()}};
+
+const $ = id => document.getElementById(id);
+const KEY = 'hinon_v15_enterprise_db';
+
+// Toast System
+function showToast(msg, type = 'info') {
+  const container = $('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => { toast.remove(); }, 3500);
 }
-function act(action){const [kind,id]=action.split(':');if(kind==='approve'){const r=db.requests.find(x=>x.id===id);if(!r)return;if(!confirm('تأكيد مراجعة الطلب والموافقة عليه؟'))return;const u=db.users.find(x=>x.id===r.id||x.phone===r.phone);if(u){if(r.type==='اشتراك جديد'){u.status='نشط';u.exp=datePlus(30);u.debt=Math.max(0,Number(r.debt)||0);u.pppoePass='يُحدد يدويًا';}else if(r.type==='تسديد دين'){u.debt=Math.max(0,(Number(u.debt)||0)-Number(r.paidAmount||0));if(u.debt===0&&u.status==='مفصول لعدم السداد')u.status='نشط'}else if(r.type==='تجديد باقة'){u.exp=datePlus(30);u.usedGb=0;u.status='نشط'}}db.requests=db.requests.filter(x=>x.id!==id);persist();log('الموافقة على الطلب '+id);render();return}
-if(kind==='reject'){const r=db.requests.find(x=>x.id===id);if(!r)return;if(!confirm('رفض الطلب؟'))return;const u=db.users.find(x=>x.id===r.id);if(u&&r.type==='اشتراك جديد')u.status='مرفوض';db.requests=db.requests.filter(x=>x.id!==id);persist();log('رفض الطلب '+id);render();return}
-if(kind==='txn'){const r=db.requests.find(x=>x.id===id);if(!r)return;const value=prompt('رقم عملية التحويل بعد التحقق اليدوي:',r.txn||'');if(value!==null){r.txn=value.trim();persist();log('تحديث رقم عملية');render()}return}
-if(kind==='delpkg'){if(db.users.some(u=>u.pkgName===db.packages.find(p=>String(p.id)===id)?.name))return alert('لا يمكن حذف باقة مستخدمة من مشترك');if(confirm('حذف الباقة؟')){db.packages=db.packages.filter(p=>String(p.id)!==id);persist();render()}return}
-if(kind==='toggle'){const u=db.users.find(x=>x.id===id);if(u){u.status=u.status==='نشط'?'موقوف':'نشط';persist();log('تغيير حالة '+u.phone);render()}return}
-if(kind==='delete'){if(confirm('حذف المشترك نهائيًا؟')){db.users=db.users.filter(u=>u.id!==id);persist();log('حذف مشترك');render()}return}
-if(kind==='edit'){const u=db.users.find(x=>x.id===id);if(!u)return;modal('تعديل المشترك',`<form id="editUser"><div class="grid"><div class="field"><label>الاسم</label><input id="euName" value="${esc(u.name)}" required></div><div class="field"><label>الدين ($)</label><input id="euDebt" type="number" min="0" step=".01" value="${Number(u.debt)||0}" required></div><div class="field"><label>تاريخ الانتهاء</label><input id="euExp" type="date" value="${/^\d{4}-\d{2}-\d{2}$/.test(u.exp)?u.exp:''}"></div><div class="field"><label>الباقة</label><select id="euPkg">${db.packages.map(p=>`<option ${p.name===u.pkgName?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>الاستهلاك (GB)</label><input id="euUsed" type="number" min="0" value="${Number(u.usedGb)||0}"></div><div class="field"><label>الحالة</label><select id="euStatus">${['نشط','موقوف','مفصول لعدم السداد','بانتظار الموافقة','مرفوض'].map(s=>`<option ${s===u.status?'selected':''}>${s}</option>`).join('')}</select></div></div><button class="primary">حفظ التعديل</button></form>`);$('editUser').onsubmit=e=>{e.preventDefault();u.name=$('euName').value.trim();u.debt=Number($('euDebt').value)||0;u.exp=$('euExp').value||'غير مفعل';u.pkgName=$('euPkg').value;u.usedGb=Number($('euUsed').value)||0;u.status=$('euStatus').value;persist();log('تعديل مشترك '+u.phone);closeModal();render()};return}
-if(kind==='reply'){const t=db.tickets.find(x=>x.id===id);if(!t)return;const answer=prompt('اكتب رد الإدارة:',t.reply||'');if(answer!==null){t.reply=answer.trim();t.status='تم الرد';persist();log('الرد على تذكرة '+t.phone);render()}}
+
+// Initial Data & Mocking
+const defaults = () => ({
+  admin: null,
+  users: [],
+  packages: [
+    {id:1, name:'2 ميجا الاقتصادية', price:15, speedKb:2000, discountNew:10, limitGb:100, throttledKb:512, days:30},
+    {id:2, name:'4 ميجا Pro', price:25, speedKb:4000, discountNew:15, limitGb:200, throttledKb:1000, days:30},
+    {id:3, name:'8 ميجا VIP', price:45, speedKb:8000, discountNew:20, limitGb:400, throttledKb:2000, days:30}
+  ],
+  hardware: {installation:10, cableM:0.5, dish:40, router:25, box:15},
+  finance: {debtDays:5, minPayment:5},
+  requests: [], tickets: [], logs: [], vouchers: [],
+  settings: {qr:'', iban:'', ticker:'أهلاً بكم في HINON TECHNOLOGY V15', autoCutoff: true}
+});
+
+let db;
+try {
+  db = {...defaults(), ...JSON.parse(localStorage.getItem(KEY) || '{}')};
+  const d = defaults();
+  for (const k of Object.keys(d)) if (db[k] === undefined) db[k] = d[k];
+} catch {
+  db = defaults();
 }
-function csv(filename,rows){if(!rows.length)return alert('لا توجد بيانات للتصدير');const keys=[...new Set(rows.flatMap(Object.keys))];const quote=v=>'"'+String(typeof v==='object'&&v!==null?JSON.stringify(v):v??'').replace(/"/g,'""')+'"';const text='\ufeff'+[keys.map(quote).join(','),...rows.map(r=>keys.map(k=>quote(r[k])).join(','))].join('\r\n');const blob=new Blob([text],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url)}
-$('logout').onclick=()=>{session=null;activePage='home';screen('login')};
+
+let session = null, activePage = 'home';
+
+function persist() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(db));
+    return true;
+  } catch {
+    showToast('تعذر حفظ البيانات! التخزين محلي ممتلئ.', 'danger');
+    return false;
+  }
+}
+
+function log(action) {
+  db.logs.unshift({date: new Date().toLocaleString('ar'), user: session?.name || 'النظام', action});
+  db.logs = db.logs.slice(0, 500);
+  persist();
+}
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function money(n) { return '$' + (Number(n) || 0).toFixed(2); }
+
+function datePlus(days) {
+  let d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+function screen(id) {
+  ['setup', 'login', 'register', 'voucherRedeem'].forEach(x => $(x).classList.toggle('hidden', x !== id));
+  $('app').classList.remove('active');
+}
+
+function modal(title, html) {
+  $('modalTitle').textContent = title;
+  $('modalBody').innerHTML = html;
+  $('modal').classList.add('active');
+}
+
+function closeModal() { $('modal').classList.remove('active'); }
+$('modalClose').onclick = closeModal;
+
+// Theme Toggle
+$('toggleTheme').onclick = () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  showToast(`تم التغيير للوضع ${next === 'dark' ? 'الليلـي' : 'النهاري'}`, 'info');
+};
+
+function init() {
+  if (!db.admin) screen('setup');
+  else screen('login');
+  fillPackages();
+  $('rPackage').onchange = estimate;
+  $('rPaid').oninput = estimate;
+  ['rDish', 'rRouter', 'rCable', 'rCableLength', 'rSource'].forEach(id => $(id).addEventListener('change', estimate));$('rCableLength').addEventListener('input', estimate);
+}
+
+// Admin Setup
+$('setupForm').onsubmit = e => {
+  e.preventDefault();
+  db.admin = {username: $('setupUser').value.trim(), password:$('setupPass').value};
+  persist();
+  log('إنشاء حساب مدير النظام الأول');
+  showToast('تم إنشاء حساب المدير بنجاح', 'success');
+  screen('login');
+};
+
+// Login System
+$('loginForm').onsubmit = e => {
+  e.preventDefault();
+  const name = $('loginUser').value.trim(), pass =$('loginPass').value;
+  if (db.admin && name === db.admin.username && pass === db.admin.password) {
+    session = {role: 'admin', name: db.admin.username};
+    openApp();
+    showToast('مرحباً بك يا مدير النظام', 'success');
+    return;
+  }
+  const u = db.users.find(x => (x.phone === name || x.pppoeUser === name || x.name === name) && x.password === pass);
+  if (!u) { showToast('بيانات الدخول غير صحيحة!', 'danger'); return; }
+  if (['بانتظار الموافقة', 'مرفوض'].includes(u.status)) { showToast('حسابك ما زال قيد المراجعة أو مرفوض', 'warning'); return; }
+  
+  session = {role: u.role || 'client', ...u};
+  openApp();
+  showToast(`أهلاً بعودتك، ${u.name}`, 'success');
+};
+
+// Vouchers Redeem
+$('toVoucherRedeem').onclick = () => screen('voucherRedeem');
+$('vBack').onclick = () => screen('login');$('voucherForm').onsubmit = e => {
+  e.preventDefault();
+  const phone = $('vPhone').value.trim(), code =$('vCode').value.trim();
+  const u = db.users.find(x => x.phone === phone);
+  if (!u) { showToast('رقم الهاتف غير مسجل بالنظام', 'danger'); return; }
+  const vIndex = db.vouchers.findIndex(v => v.code === code && !v.used);
+  if (vIndex === -1) { showToast('كود الكرت غير صالح أو مستخدم مسبقاً', 'danger'); return; }
+  
+  const v = db.vouchers[vIndex];
+  v.used = true;
+  v.usedBy = phone;
+  v.usedAt = new Date().toLocaleString('ar');
+  
+  u.exp = datePlus(v.days || 30);
+  u.status = 'نشط';
+  persist();
+  log(`شحن كرت (${code}) للمشترك ${phone}`);
+  showToast(`تم شحن ${v.pkgName} بنجاح!`, 'success');
+  screen('login');
+};
+
+$('toRegister').onclick = () => { fillPackages(); screen('register'); estimate(); };$('registerBack').onclick = () => screen('login');
+
+function fillPackages() {
+  $('rPackage').innerHTML = db.packages.map(p => `<option value="${p.id}">${esc(p.name)} — ${money(p.price)} (${p.speedKb} KB)</option>`).join('');
+}
+
+function estimate() {
+  if (!$('rPackage').options.length) return;
+  const p = db.packages.find(p => p.id === Number($('rPackage').value)) || db.packages[0];
+  if (!p) return;
+  let hw = $('rSource').value === 'علبة' ? db.hardware.box : ($('rDish').value === 'yes' ? db.hardware.dish : 0);
+  if ($('rRouter').value === 'yes') hw += db.hardware.router;
+  if ($('rCable').value === 'yes') hw += Math.max(0, Number($('rCableLength').value) || 0) * db.hardware.cableM;
+  const discount = p.price * (p.discountNew || 0) / 100;
+  const total = p.price - discount + db.hardware.installation + hw;
+  const paid = Math.max(0, Number($('rPaid').value) \vert{}\vert{} 0);$('estimate').innerHTML = `سعر الباقة: <b>${money(p.price)}</b> | الخصم: <b>${money(discount)}</b> | التركيب والعتاد: <b>${money(db.hardware.installation + hw)}</b><br>الإجمالي: <b>${money(total)}</b> | المدفوع: <b>${money(paid)}</b> | المتبقي: <b>${money(Math.max(0, total - paid))}</b>`;
+}
+
+$('registerForm').onsubmit = e => {
+  e.preventDefault();
+  const phone = $('rPhone').value.trim();
+  if (db.users.some(u => u.phone === phone)) { showToast('رقم الهاتف مسجل مسبقاً!', 'danger'); return; }
+  const p = db.packages.find(x => x.id === Number($('rPackage').value));
+  if (!p) return;
+  
+  const price = p.price * (1 - (p.discountNew || 0) / 100);
+  let hw = $('rSource').value === 'علبة' ? db.hardware.box : ($('rDish').value === 'yes' ? db.hardware.dish : 0);
+  if ($('rRouter').value === 'yes') hw += db.hardware.router;
+  if ($('rCable').value === 'yes') hw += Math.max(0, Number($('rCableLength').value) || 0) * db.hardware.cableM;
+  
+  const total = price + db.hardware.installation + hw, paid = Math.max(0, Number($('rPaid').value) || 0);
+  if (paid > total) { showToast('المبلغ المدفوع يتجاوز إجمالي التكلفة!', 'danger'); return; }
+
+  const user = {
+    id: String(Date.now()), role: 'client', name: $('rName').value.trim(), phone, password:$('rPass').value,
+    city: $('rCity').value.trim(), street: $('rStreet').value.trim(), house:$('rHouse').value.trim(),
+    tower: $('rTower').value.trim(), source:$('rSource').value, hardware: hw, pkgName: p.name,
+    paid, debt: Math.max(0, total - paid), total, usedGb: 0,
+    pppoeUser: 'hn_' + phone.replace(/\D/g, '').slice(-8), pppoePass: String(Math.floor(100000 + Math.random() * 900000)),
+    exp: 'غير مفعل', debtDueDate: datePlus(db.finance.debtDays), status: 'بانتظار الموافقة'
+  };
+  
+  db.users.push(user);
+  db.requests.unshift({id: user.id, phone, name: user.name, type: 'اشتراك جديد', pkgName: p.name, total, paidAmount: paid, debt: user.debt, txn: '', status: 'بانتظار الموافقة', date: new Date().toLocaleString('ar')});
+  persist();
+  log('طلب اشتراك جديد من: ' + phone);
+  showToast('تم تقديم الطلب بنجاح وهو قيد الموافقة', 'success');
+  $('registerForm').reset();
+  fillPackages();
+  screen('login');
+};
+
+function openApp() {
+  screen('login');
+  $('app').classList.add('active');$('welcome').textContent = session.name;
+  $('roleTag').textContent = session.role === 'admin' ? 'مدير عام' : (session.role === 'tech' ? 'فني شبكات' : 'مشترك');
+  buildNav();
+  render();
+}
+
+function buildNav() {
+  const admin = session.role === 'admin';
+  const tech = session.role === 'tech';
+  
+  let items = [];
+  if (admin) {
+    items = [
+      ['home', '📊 الرئيسية'], ['requests', '📥 الطلبات والدفعات'], ['users', '👥 المشتركون والشبكة'],
+      ['vouchers', '🎫 كروت الشحن'], ['packages', '⚡ الباقات والخدمات'], ['finance', '💰 المالية والتقارير'],
+      ['support', '💬 الدعم الفني'], ['settings', '⚙️ إعدادات النظام'], ['logs', '📜 سجل النشاطات']
+    ];
+  } else if (tech) {
+    items = [
+      ['home', '📊 الرئيسية'], ['users', '👥 المشتركون والشبكة'], ['support', '💬 تذاكر الدعم']
+    ];
+  } else {
+    items = [
+      ['home', '🏠 حسابي والتفاصيل'], ['pay', '💳 التجديد والدفعات'], ['support', '💬 الدعم الفني']
+    ];
+  }
+  
+  $('navItems').innerHTML = items.map(([id, label]) => `<button class="nav ${activePage === id ? 'active' : ''}" data-page="${id}">${label}</button>`).join('');
+  $('navItems').querySelectorAll('button').forEach(b => b.onclick = () => { activePage = b.dataset.page; buildNav(); render(); });
+}
+
+function table(headers, rows) {
+  return `<div class="table-wrap"><table><thead><tr>${headers.map(x => `<th>${x}</th>`).join('')}</tr></thead><tbody>${rows || `<tr><td colspan="${headers.length}" style="text-align:center; padding:20px;" class="muted">لا توجد بيانات لعرضها</td></tr>`}</tbody></table></div>`;
+}
+
+function btn(label, cls, action) {
+  return `<button class="${cls}" data-action="${action}">${label}</button>`;
+}
+
+function render() {
+  if (!session) return;
+  const admin = session.role === 'admin';
+  const tech = session.role === 'tech';
+  let html = '';
+
+  if ((admin || tech) && activePage === 'home') {
+    const totalDebts = db.users.reduce((s, u) => s + (Number(u.debt) || 0), 0);
+    const activeUsers = db.users.filter(u => u.status === 'نشط').length;
+    
+    html = `<div class="stats">
+      <div class="stat"><small>المشتركون النشطون</small><strong>${activeUsers} / ${db.users.length}</strong></div>
+      <div class="stat"><small>طلبات قيد الانتظار</small><strong>${db.requests.filter(r => r.status.includes('انتظار')).length}</strong></div>
+      <div class="stat"><small>إجمالي الديون المستحقة</small><strong>${money(totalDebts)}</strong></div>
+      <div class="stat"><small>تذاكر دعم مفتوحة</small><strong>${db.tickets.filter(t => t.status === 'قيد الانتظار').length}</strong></div>
+    </div>
+    <div class="card">
+      <h3>⚡ حالة النظام والشبكة العامة</h3>
+      <p class="muted" style="margin-top:6px;">المنصة تعمل بنجاح وبسرعة عالية. كل البيانات محفوظة ومجردة محلياً جاهزة للربط مع MikroTik API.</p>
+    </div>`;
+  }
+  else if (admin && activePage === 'vouchers') {
+    html = `<div class="card">
+      <h3>توليد كروت شحن باقات جديدة (Vouchers)</h3>
+      <form id="genVoucherForm" class="grid" style="margin-top:15px;">
+        <div class="field"><label>اختر الباقة</label><select id="vPkg">${db.packages.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div>
+        <div class="field"><label>عدد الكروت المطلوبة</label><input id="vCount" type="number" min="1" max="50" value="5"></div>
+        <button class="success" style="grid-column: 1/-1;">توليد الكروت فوراً</button>
+      </form>
+    </div>
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3>قائمة الكروت المُنشأة</h3>
+        <button class="outline" onclick="window.print()">🖨️ طباعة الكروت</button>
+      </div>
+      ${table(['الكود', 'الباقة', 'المدة (أيام)', 'الحالة', 'تاريخ الاستخدام / المستخدم'], db.vouchers.map(v => `<tr>
+        <td><code class="badge ${v.used?'red':'green'}">${esc(v.code)}</code></td>
+        <td>${esc(v.pkgName)}</td>
+        <td>${v.days || 30} يوم</td>
+        <td><span class="badge ${v.used?'red':'green'}">${v.used ? 'مستخدم' : 'متاح'}</span></td>
+        <td>${v.used ? esc(v.usedBy + ' - ' + v.usedAt) : '—'}</td>
+      </tr>`).join(''))}
+    </div>`;
+  }
+  else if ((admin || tech) && activePage === 'users') {
+    html = `<div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+        <h3>إدارة المشتركين وحسابات PPPoE</h3>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <input id="userSearch" placeholder="بحث باسم، هاتف، أو PPPoE..." style="padding:8px 12px; border:1px solid var(--border); border-radius:8px;">
+          ${admin ? `<button class="primary" id="addUser">إضافة مشترك</button>` : ''}
+          <button class="secondary" id="exportUsers">تصدير CSV</button>
+        </div>
+      </div>
+      <div id="usersTable">${usersTable(db.users)}</div>
+    </div>`;
+  }
+  else if (admin && activePage === 'requests') {
+    html = `<div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3>طلبات الاشتراكات والدفعات المالية</h3>
+        <button class="primary" id="exportReq">تصدير CSV</button>
+      </div>
+      ${table(['المشترك', 'نوع الطلب', 'الباقة / التفاصيل', 'المبالغ', 'رقم التحويل', 'الحالة', 'الإجراءات'], db.requests.map(r => `<tr>
+        <td><b>${esc(r.name)}</b><br><small class="muted">${esc(r.phone)}</small></td>
+        <td><span class="badge orange">${esc(r.type)}</span></td>
+        <td>${esc(r.pkgName || '—')}</td>
+        <td>إجمالي: ${money(r.total)}<br>مدفوع: ${money(r.paidAmount)}<br>دين: ${money(r.debt)}</td>
+        <td><code>${esc(r.txn || 'لا يوجد')}</code></td>
+        <td><span class="badge orange">${esc(r.status)}</span></td>
+        <td><div style="display:flex; gap:6px; flex-wrap:wrap;">
+          ${btn('موافقة', 'success', 'approve:' + r.id)}
+          ${btn('رفض', 'danger', 'reject:' + r.id)}
+          ${btn('تعديل رقم العملية', 'secondary', 'txn:' + r.id)}
+        </div></td>
+      </tr>`).join(''))}
+    </div>`;
+  }
+  else if (admin && activePage === 'packages') {
+    html = `<div class="card">
+      <h3>إضافة باقة إنترنت جديدة</h3>
+      <form id="pkgForm" class="grid" style="margin-top:15px;">
+        <div class="field"><label>اسم الباقة</label><input id="pName" required></div>
+        <div class="field"><label>السعر الشهرية ($)</label><input id="pPrice" type="number" min="0" step=".01" required></div>
+        <div class="field"><label>السرعة (Kbps)</label><input id="pSpeed" type="number" min="1" required></div>
+        <div class="field"><label>خصم المشترك الجديد (%)</label><input id="pDiscount" type="number" min="0" max="100" value="10"></div>
+        <div class="field"><label>الحد الأقصى (GB)</label><input id="pLimit" type="number" min="1" value="100"></div>
+        <div class="field"><label>السرعة الخانقة بعد تجاوز الحد (Kbps)</label><input id="pThrottle" type="number" min="1" value="512"></div>
+        <button class="success" style="grid-column: 1/-1;">حفظ الباقة</button>
+      </form>
+    </div>
+    <div class="card">
+      <h3>الباقات المتاحة</h3>
+      ${table(['اسم الباقة', 'السعر', 'السرعة', 'الخصم', 'السعة', 'إجراء'], db.packages.map(p => `<tr>
+        <td><b>${esc(p.name)}</b></td>
+        <td>${money(p.price)}</td>
+        <td>${p.speedKb} Kbps</td>
+        <td>${p.discountNew}%</td>
+        <td>${p.limitGb} GB</td>
+        <td>${btn('حذف الباقة', 'danger', 'delpkg:' + p.id)}</td>
+      </tr>`).join(''))}
+    </div>`;
+  }
+  else if (admin && activePage === 'finance') {
+    html = `<div class="card">
+      <h3>إعدادات وتخصيصات شروط السداد والديون</h3>
+      <form id="financeForm" class="grid" style="margin-top:15px;">
+        <div class="field"><label>مهلة السداد (أيام)</label><input id="debtDays" type="number" value="${db.finance.debtDays}" required></div>
+        <div class="field"><label>الحد الأدنى للدفعة المقبولة ($)</label><input id="minPay" type="number" step=".01" value="${db.finance.minPayment}" required></div>
+        <button class="success" style="grid-column: 1/-1;">حفظ التغييرات</button>
+      </form>
+    </div>`;
+  }
+  else if ((admin || tech) && activePage === 'support') {
+    html = `<div class="card">
+      <h3>تذاكر الدعم الفني والبلاغات</h3>
+      ${table(['المشترك', 'الموضوع', 'التفاصيل والرد', 'التاريخ', 'الحالة', 'إجراء'], db.tickets.map(t => `<tr>
+        <td><b>${esc(t.userName)}</b><br><small class="muted">${esc(t.phone)}</small></td>
+        <td><b>${esc(t.subject)}</b></td>
+        <td>${esc(t.body)}<br><small class="muted"><b>الرد الحالي:</b> ${esc(t.reply || 'لا يوجد رد بعد')}</small></td>
+        <td>${esc(t.date)}</td>
+        <td><span class="badge ${t.status==='تم الرد'?'green':'orange'}">${esc(t.status)}</span></td>
+        <td>${btn('إرسال رد', 'primary', 'reply:' + t.id)}</td>
+      </tr>`).join(''))}
+    </div>`;
+  }
+  else if (admin && activePage === 'settings') {
+    html = `<div class="card">
+      <h3>إعدادات وسائل الدفع والإعلانات</h3>
+      <form id="settingsForm" style="margin-top:15px;">
+        <div class="field"><label>رقم حساب التحويل / IBAN</label><input id="iban" value="${esc(db.settings.iban)}"></div>
+        <div class="field"><label>رابط صورة كود QR للدفع</label><input id="qr" type="url" value="${esc(db.settings.qr)}"></div>
+        <div class="field"><label>شريط إعلانات الصفحة الرئيسية</label><input id="ticker" value="${esc(db.settings.ticker)}"></div>
+        <button class="primary" style="margin-top:10px;">حفظ الإعدادات العامة</button>
+      </form>
+      <hr style="margin:20px 0; border:0; border-top:1px solid var(--border);">
+      <button class="danger" id="reset">مسح كل بيانات النظام المحلي وإعادة التهيئة</button>
+    </div>`;
+  }
+  else if (admin && activePage === 'logs') {
+    html = `<div class="card">
+      <h3>سجل نشاطات وعمليات النظام</h3>
+      ${table(['التاريخ والوقت', 'المستخدم', 'نوع الإجراء / العملية'], db.logs.map(l => `<tr>
+        <td><small class="muted">${esc(l.date)}</small></td>
+        <td><b>${esc(l.user)}</b></td>
+        <td>${esc(l.action)}</td>
+      </tr>`).join(''))}
+    </div>`;
+  }
+  else if (!admin && !tech && activePage === 'home') {
+    const u = db.users.find(x => x.id === session.id) || session;
+    const p = db.packages.find(x => x.name === u.pkgName);
+    const used = Number(u.usedGb) || 0, limit = p?.limitGb || 100;
+    const percent = Math.min(100, Math.round((used / limit) * 100));
+    
+    html = `<div class="stats">
+      <div class="stat"><small>الباقة المشترك بها</small><strong>${esc(u.pkgName)}</strong></div>
+      <div class="stat"><small>تاريخ نهاية الاشتراك</small><strong>${esc(u.exp)}</strong></div>
+      <div class="stat"><small>المبلغ المستحق / الدين</small><strong style="color:var(--danger);">${money(u.debt)}</strong></div>
+    </div>
+    <div class="card">
+      <h3>بيانات اتصال PPPoE الخاص بك</h3>
+      <div style="margin-top:15px; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+        <div class="notice">اسم المستخدم: <b>${esc(u.pppoeUser)}</b></div>
+        <div class="notice">كلمة المرور: <b>${esc(u.pppoePass)}</b></div>
+      </div>
+      <div style="margin-top:15px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:700;">
+          <span>استهلاك الباقة الشهرية:</span>
+          <span>${used} / ${limit} GB (${percent}%)</span>
+        </div>
+        <div class="bar"><span style="width:${percent}%"></span></div>
+      </div>
+    </div>`;
+  }
+  else if (!admin && !tech && activePage === 'pay') {
+    const u = db.users.find(x => x.id === session.id) || session;
+    html = `<div class="card">
+      <h3>تسديد الدين أو تجديد الاشتراك</h3>
+      <p class="muted" style="margin-bottom:15px;">الدين الحالي المستحق عليك: <b>${money(u.debt)}</b></p>
+      ${db.settings.iban ? `<div class="notice">حساب التحويل المالي: <b>${esc(db.settings.iban)}</b></div>` : ''}
+      <form id="payForm">
+        <div class="grid">
+          <div class="field"><label>نوع العملية</label><select id="payType"><option value="تسديد دين">تسديد دين مستحق</option><option value="تجديد باقة">تجديد الاشتراك بالباقة</option></select></div>
+          <div class="field"><label>المبلغ المدفوع ($)</label><input id="payAmount" type="number" min=".01" step=".01" required></div>
+          <div class="field"><label>رقم عملية التحويل / الإشعار</label><input id="payTxn" required placeholder="مثال: TXN-892301"></div>
+        </div>
+        <button class="success" style="margin-top:15px;">إرسال العملية للمراجعة</button>
+      </form>
+    </div>`;
+  }
+  else if (!admin && !tech && activePage === 'support') {
+    const u = db.users.find(x => x.id === session.id) || session;
+    html = `<div class="card">
+      <h3>إرسال بلاغ أو تذكرة دعم فني</h3>
+      <form id="ticketForm" style="margin-top:15px;">
+        <div class="field"><label>عنوان البلاغ / المشكلة</label><input id="ticketSubject" required placeholder="مثال: انقطاع الخدمة أو بطء السرعة"></div>
+        <div class="field"><label>شرح التفاصيل</label><textarea id="ticketBody" required rows="4"></textarea></div>
+        <button class="primary" style="margin-top:10px;">إرسال البلاغ الآن</button>
+      </form>
+    </div>
+    <div class="card">
+      <h3>تذاكرك ومتابعة الردود</h3>
+      ${table(['الموضوع', 'التاريخ', 'الحالة', 'رد الإدارة'], db.tickets.filter(t => t.phone === u.phone).map(t => `<tr>
+        <td><b>${esc(t.subject)}</b></td>
+        <td><small class="muted">${esc(t.date)}</small></td>
+        <td><span class="badge ${t.status==='تم الرد'?'green':'orange'}">${esc(t.status)}</span></td>
+        <td>${esc(t.reply || 'في انتظار مراجعة الفني')}</td>
+      </tr>`).join(''))}
+    </div>`;
+  }
+
+  $('content').innerHTML = html;
+  bindPageEvents();
+}
+
+function usersTable(users) {
+  return table(['المشترك والهاتف', 'حساب PPPoE', 'الباقة', 'الانتهاء', 'الدين', 'الحالة', 'إجراءات وشبكة'], users.map(u => `<tr>
+    <td><b>${esc(u.name)}</b><br><small class="muted">${esc(u.phone)}</small></td>
+    <td><code>${esc(u.pppoeUser)}</code><br><small class="muted">بورد: ${esc(u.pppoePass)}</small></td>
+    <td>${esc(u.pkgName)}</td>
+    <td>${esc(u.exp)}</td>
+    <td><span style="color:${u.debt>0?'var(--danger)':'inherit'}; font-weight:700;">${money(u.debt)}</span></td>
+    <td><span class="badge ${u.status==='نشط'?'green':'red'}">${esc(u.status)}</span></td>
+    <td><div style="display:flex; gap:6px; flex-wrap:wrap;">
+      ${btn('طباعة فاتورة', 'outline', 'receipt:' + u.id)}
+      ${btn('تعديل', 'primary', 'edit:' + u.id)}
+      ${btn(u.status==='نشط'?'إيقاف':'تفعيل', 'warning', 'toggle:' + u.id)}
+      ${session.role==='admin' ? btn('حذف', 'danger', 'delete:' + u.id) : ''}
+    </div></td>
+  </tr>`).join(''));
+}
+
+function bindPageEvents() {
+  $('content').querySelectorAll('[data-action]').forEach(b => b.onclick = () => act(b.dataset.action));
+  
+  if ($('userSearch'))$('userSearch').oninput = () => {
+    const q = $('userSearch').value.toLowerCase();$('usersTable').innerHTML = usersTable(db.users.filter(u => (u.name + u.phone + u.pppoeUser).toLowerCase().includes(q)));
+  };
+
+  if ($('genVoucherForm'))$('genVoucherForm').onsubmit = e => {
+    e.preventDefault();
+    const pkgId = Number($('vPkg').value);
+    const count = Number($('vCount').value) || 1;
+    const pkg = db.packages.find(p => p.id === pkgId);
+    if (!pkg) return;
+    
+    for (let i = 0; i < count; i++) {
+      const code = 'HN-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.floor(1000 + Math.random() * 9000);
+      db.vouchers.unshift({code, pkgName: pkg.name, days: pkg.days || 30, used: false, usedBy: null, usedAt: null});
+    }
+    persist();
+    log(`توليد ${count} كروت لشحن ${pkg.name}`);
+    showToast(`تم توليد ${count} كرت بنجاح`, 'success');
+    render();
+  };
+
+  if ($('addUser'))$('addUser').onclick = () => modal('إضافة مشترك جديد', `<form id="manualUser"><div class="grid"><div class="field"><label>الاسم</label><input id="muName" required></div><div class="field"><label>الهاتف</label><input id="muPhone" required></div><div class="field"><label>كلمة المرور</label><input id="muPass" minlength="8" required></div><div class="field"><label>الباقة</label><select id="muPkg">${db.packages.map(p => `<option>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>الدين ($)</label><input id="muDebt" type="number" min="0" step=".01" value="0"></div></div><button class="success" style="margin-top:15px; width:100%;">حفظ وإضافة المشترك</button></form>`);
+  
+  if ($('manualUser'))$('manualUser').onsubmit = e => {
+    e.preventDefault();
+    const phone = $('muPhone').value.trim();
+    if (db.users.some(u => u.phone === phone)) { showToast('الهاتف مسجل مسبقاً', 'danger'); return; }
+    const u = {
+      id: String(Date.now()), role: 'client', name: $('muName').value.trim(), phone, password:$('muPass').value,
+      pkgName: $('muPkg').value, debt: Number($('muDebt').value) || 0, usedGb: 0,
+      pppoeUser: 'hn_' + Date.now().toString().slice(-8), pppoePass: String(Math.floor(100000 + Math.random() * 900000)),
+      exp: datePlus(30), status: 'نشط'
+    };
+    db.users.push(u);
+    persist();
+    log('إضافة مشترك يدوي: ' + phone);
+    closeModal();
+    showToast('تمت إضافة المشترك بنجاح', 'success');
+    render();
+  };
+
+  if ($('pkgForm'))$('pkgForm').onsubmit = e => {
+    e.preventDefault();
+    db.packages.push({
+      id: Date.now(), name: $('pName').value.trim(), price: Number($('pPrice').value),
+      speedKb: Number($('pSpeed').value), discountNew: Number($('pDiscount').value),
+      limitGb: Number($('pLimit').value), throttledKb: Number($('pThrottle').value), days: 30
+    });
+    persist();
+    log('إضافة باقة جديدة');
+    showToast('تمت إضافة الباقة', 'success');
+    render();
+  };
+
+  if ($('financeForm'))$('financeForm').onsubmit = e => {
+    e.preventDefault();
+    db.finance = {debtDays: Number($('debtDays').value), minPayment: Number($('minPay').value)};
+    persist();
+    showToast('تم حفظ شروط السداد', 'success');
+  };
+
+  if ($('settingsForm'))$('settingsForm').onsubmit = e => {
+    e.preventDefault();
+    db.settings.iban = $('iban').value.trim();
+    db.settings.qr = $('qr').value.trim();
+    db.settings.ticker = $('ticker').value.trim();
+    persist();
+    showToast('تم حفظ إعدادات النظام', 'success');
+  };
+
+  if ($('ticketForm'))$('ticketForm').onsubmit = e => {
+    e.preventDefault();
+    const u = db.users.find(x => x.id === session.id) || session;
+    db.tickets.unshift({id: String(Date.now()), phone: u.phone, userName: u.name, subject: $('ticketSubject').value.trim(), body:$('ticketBody').value.trim(), reply: '', status: 'قيد الانتظار', date: new Date().toLocaleString('ar')});
+    persist();
+    showToast('تم إرسال بلاغك بنجاح', 'success');
+    render();
+  };
+
+  if ($('payForm'))$('payForm').onsubmit = e => {
+    e.preventDefault();
+    const u = db.users.find(x => x.id === session.id) || session;
+    const type = $('payType').value, amount = Number($('payAmount').value), txn =$('payTxn').value.trim();
+    if (amount <= 0 || !txn) { showToast('تحقق من صحة المبلغ ورقم العملية', 'danger'); return; }
+    db.requests.unshift({id: String(Date.now()), phone: u.phone, name: u.name, type, pkgName: u.pkgName, paidAmount: amount, txn, status: 'بانتظار الموافقة', date: new Date().toLocaleString('ar')});
+    persist();
+    showToast('تم إرسال عملية الدفع للمراجعة', 'success');
+    render();
+  };
+
+  if ($('exportUsers'))$('exportUsers').onclick = () => csv('hinon-users.csv', db.users);
+  if ($('exportReq'))$('exportReq').onclick = () => csv('hinon-requests.csv', db.requests);
+  if ($('reset'))$('reset').onclick = () => {
+    if (confirm('هل أنت متأكد تماماً من حذف كل بيانات النظام بشكل دائم؟')) {
+      localStorage.removeItem(KEY);
+      location.reload();
+    }
+  };
+}
+
+function act(action) {
+  const [kind, id] = action.split(':');
+  
+  if (kind === 'receipt') {
+    const u = db.users.find(x => x.id === id); if (!u) return;
+    modal('إيصال سداد وباقة رسمي', `
+      <div style="text-align:center; padding:10px;">
+        <h2>HINON TECHNOLOGY</h2>
+        <p class="muted">إيصال حساب مشترك وتفاصيل الخدمة</p>
+        <hr style="margin:15px 0;">
+        <div style="text-align:right; font-size:14px; line-height:2;">
+          <p>اسم المشترك: <b>${esc(u.name)}</b></p>
+          <p>رقم الهاتف: <b>${esc(u.phone)}</b></p>
+          <p>اسم المستخدم PPPoE: <code>${esc(u.pppoeUser)}</code></p>
+          <p>الباقة الحالية: <b>${esc(u.pkgName)}</b></p>
+          <p>تاريخ الانتهاء: <b>${esc(u.exp)}</b></p>
+          <p>الدين المستحق: <b style="color:var(--danger);">${money(u.debt)}</b></p>
+        </div>
+        <button class="primary" style="margin-top:20px; width:100%;" onclick="window.print()">🖨️ طباعة الإيصال</button>
+      </div>
+    `);
+  }
+  else if (kind === 'approve') {
+    const r = db.requests.find(x => x.id === id); if (!r) return;
+    if (!confirm('تأكيد الموافقة على الطلب والتفعيل؟')) return;
+    const u = db.users.find(x => x.id === r.id || x.phone === r.phone);
+    if (u) {
+      if (r.type === 'اشتراك جديد') { u.status = 'نشط'; u.exp = datePlus(30); u.debt = Math.max(0, Number(r.debt) || 0); }
+      else if (r.type === 'تسديد دين') { u.debt = Math.max(0, (Number(u.debt) || 0) - Number(r.paidAmount || 0)); }
+      else if (r.type === 'تجديد باقة') { u.exp = datePlus(30); u.usedGb = 0; u.status = 'نشط'; }
+    }
+    db.requests = db.requests.filter(x => x.id !== id);
+    persist();
+    showToast('تمت الموافقة وتحديث بيانات الحساب', 'success');
+    render();
+  }
+  else if (kind === 'reject') {
+    if (!confirm('تأكيد رفض هذا الطلب؟')) return;
+    db.requests = db.requests.filter(x => x.id !== id);
+    persist();
+    showToast('تم رفض الطلب', 'info');
+    render();
+  }
+  else if (kind === 'delpkg') {
+    if (confirm('تأكيد حذف هذه الباقة؟')) {
+      db.packages = db.packages.filter(p => String(p.id) !== id);
+      persist();
+      showToast('تم حذف الباقة', 'info');
+      render();
+    }
+  }
+  else if (kind === 'toggle') {
+    const u = db.users.find(x => x.id === id);
+    if (u) {
+      u.status = u.status === 'نشط' ? 'موقوف' : 'نشط';
+      persist();
+      showToast(`تم تغيير حالة الحساب إلى: ${u.status}`, 'info');
+      render();
+    }
+  }
+  else if (kind === 'delete') {
+    if (confirm('حذف حساب المشترك نهائياً؟')) {
+      db.users = db.users.filter(u => u.id !== id);
+      persist();
+      showToast('تم حذف حساب المشترك', 'info');
+      render();
+    }
+  }
+  else if (kind === 'edit') {
+    const u = db.users.find(x => x.id === id); if (!u) return;
+    modal('تعديل بيانات المشترك', `
+      <form id="editUser">
+        <div class="grid">
+          <div class="field"><label>الاسم الكامل</label><input id="euName" value="${esc(u.name)}" required></div>
+          <div class="field"><label>المبلغ المستحق ($)</label><input id="euDebt" type="number" step=".01" value="${Number(u.debt)||0}" required></div>
+          <div class="field"><label>تاريخ الانتهاء</label><input id="euExp" value="${esc(u.exp)}"></div>
+          <div class="field"><label>الحالة</label><select id="euStatus">${['نشط', 'موقوف', 'بانتظار الموافقة'].map(s => `<option ${s === u.status ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
+        </div>
+        <button class="primary" style="margin-top:15px; width:100%;">حفظ التعديلات</button>
+      </form>
+    `);
+    $('editUser').onsubmit = e => {
+      e.preventDefault();
+      u.name = $('euName').value.trim();
+      u.debt = Number($('euDebt').value) || 0;
+      u.exp = $('euExp').value;
+      u.status = $('euStatus').value;
+      persist();
+      closeModal();
+      showToast('تم التعديل بنجاح', 'success');
+      render();
+    };
+  }
+  else if (kind === 'reply') {
+    const t = db.tickets.find(x => x.id === id); if (!t) return;
+    const ans = prompt('اكتب الرد الرسمي للمشترك:', t.reply || '');
+    if (ans !== null) {
+      t.reply = ans.trim();
+      t.status = 'تم الرد';
+      persist();
+      showToast('تم تسجيل الرد على التذكرة', 'success');
+      render();
+    }
+  }
+}
+
+function csv(filename, rows) {
+  if (!rows.length) return showToast('لا توجد بيانات للتصدير', 'warning');
+  const keys = [...new Set(rows.flatMap(Object.keys))];
+  const quote = v => '"' + String(typeof v === 'object' && v !== null ? JSON.stringify(v) : v ?? '').replace(/"/g, '""') + '"';
+  const text = '\ufeff' + [keys.map(quote).join(','), ...rows.map(r => keys.map(k => quote(r[k])).join(','))].join('\r\n');
+  const blob = new Blob([text], {type: 'text/csv;charset=utf-8;'}), url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
+}
+
+$('logout').onclick = () => {
+  session = null;
+  activePage = 'home';
+  screen('login');
+  showToast('تم تسجيل الخروج', 'info');
+};
+
 init();
 </script>
-</body></html>
+</body>
+</html>
